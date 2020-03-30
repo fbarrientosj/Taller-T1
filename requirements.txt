@@ -68,7 +68,6 @@ google-auth==1.6.3
 google-auth-httplib2==0.0.3
 graphviz==0.10.1
 gunicorn==19.9.0
-gurobipy==8.0.1
 h5py==2.9.0
 HeapDict==1.0.0
 heroku==0.1.4

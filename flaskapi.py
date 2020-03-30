@@ -27,11 +27,11 @@ def home():
 def about():
     return render_template('about.html', title='About')
 
-@app.route('/handle_data', methods=['POST'])
-def handle_data():
-    projectpath = request.form['projectFilepath']
-    
-    return render_template('about.html', title='About')
+@app.route('/episode/<int:episode_id>')
+def find_episode(episode_id): 
+    print(type(episode_id))
+    print(episode_id)
+    return render_template('episode.html', episode=episode_id)
 
 
 if __name__ == '__main__':

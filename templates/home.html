@@ -1,0 +1,15 @@
+{% extends "layout.html" %}
+{% block content %}
+    {% for episode in episodes %}
+        <article class="media content-section">
+          <div class="media-body">
+            <div class="article-metadata">
+              <a class="mr-2" href="#">Capítulo {{ episode.id }}</a>
+              <small class="text-muted">{{ episode.air_date }}</small>
+            </div>
+            <h2><a class="article-title" href="#">{{ episode.name }}</a></h2>
+            <p class="article-content">{{ episode.episode }}</p>
+          </div>
+        </article>
+    {% endfor %}
+{% endblock content %}

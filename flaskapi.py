@@ -1,4 +1,4 @@
-from flask import Flask, render_template, url_for
+from flask import Flask, render_template, url_for, request
 import requests
 
 app = Flask(__name__)
@@ -25,6 +25,12 @@ def home():
 
 @app.route("/about")
 def about():
+    return render_template('about.html', title='About')
+
+@app.route('/handle_data', methods=['POST'])
+def handle_data():
+    projectpath = request.form['projectFilepath']
+    
     return render_template('about.html', title='About')
 
 

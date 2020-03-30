@@ -13,5 +13,8 @@
         </article>
     {% endfor %}
 
-    
+    <form action="{{ url_for('handle_data') }}" method="post">
+      <input type="text" name="projectFilepath">
+      <input type="submit">
+    </form>
 {% endblock content %}

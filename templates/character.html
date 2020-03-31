@@ -1,0 +1,45 @@
+{% extends "layout.html" %}
+{% block content %}
+
+    <article class="media content-section">
+        <div class="media-body">
+        <div class="article-metadata">
+            <a class="mr-2" >Raza {{ character.species }}</a>
+            <small class="text-muted">{{ character.status }}</small>
+        </div>
+        <img src="{{ character.image }}" alt="character">
+        <h2><a class="article-title" href = {{ url_for('find_character' ,character_id=character.id) }}>{{ character.name }}</a></h2>
+        <p class="article-content">{{ character.origin.name }}</p>
+        </div>
+    </article>
+    
+    <h2>Episodes</h2>
+    {% if character.typeEpisode == 'list' %}
+        {% for episode in character.episode %}
+            <article class="media content-section">
+            <div class="media-body">
+                <div class="article-metadata">
+                <h2><a class="article-title" href = {{ url_for('find_episode' ,episode_id=episode.id) }}>{{ episode.name }}</a></h2>
+                <small class="text-muted">{{ episode.id }}</small>
+                </div>
+                <p class="article-content">{{ episode.air_date }}</p>
+            </div>
+            </article>
+        {% endfor %}
+    
+    {% else %}
+            
+        <article class="media content-section">
+            <div class="media-body">
+                <div class="article-metadata">
+                <h2><a class="article-title" href = {{ url_for('find_episode' ,episode_id=character.episode.id) }}>{{ character.episode.name }}</a></h2>
+                <small class="text-muted">{{ character.episode.id }}</small>
+                </div>
+                <p class="article-content">{{ character.episode.air_date }}</p>
+            </div>
+        </article>
+        
+    {% endif %}
+
+    
+{% endblock content %}

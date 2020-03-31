@@ -53,6 +53,19 @@
                 <li class="list-group-item list-group-item-light">Calendars</li>
                 <li class="list-group-item list-group-item-light">etc</li>
               </ul>
+
+              
+              <!-- The form -->
+              <form action="{{ url_for('handle_data') }}" method="post">
+                <div class="form-group">
+                  <p> </p>
+                  <h3>Looking for something?</h3>
+                  <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter your search" name="projectFilepath">
+                  <small id="emailHelp" class="form-text text-muted">All about Rick and morty in one place</small>
+                  
+                </div>
+                <button type="submit" class="btn btn-primary">Go!</button>
+              </form>
             </p>
           </div>
         </div>

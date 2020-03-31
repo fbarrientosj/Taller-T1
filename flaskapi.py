@@ -128,7 +128,84 @@ def find_place(place_id):
         data['typeCharacters'] = 'dict'
     return render_template('place.html', place=data)
     
+@app.route('/handle_data', methods=['POST'])
+def handle_data():
+    search = request.form['projectFilepath']
 
+    episodiosCoincidentes = []
+    personajesCoincidentes = []
+    lugaresCoincidentes = []
+    
+    # Se busca primero en los episodios 
+
+    url1 = "https://rickandmortyapi.com/api/episode/"
+    url2 = "https://rickandmortyapi.com/api/episode?page=2"
+    payload = {}
+    headers= {}
+    response1 = requests.request("GET", url1, headers=headers, data = payload)
+    response2 = requests.request("GET", url2, headers=headers, data = payload)
+    data1 = response1.json() 
+    data2 = response2.json() 
+    episodes1 = data1['results']
+    episodes2 = data2['results']
+    episodes = episodes1 + episodes2
+
+    for episode in episodes:
+        if search.lower() in episode['name'].lower():
+            episodiosCoincidentes.append(episode)
+
+    # Se buscan los personajes coincidentes (lento pero funciona)
+
+    
+    url8 = 'https://rickandmortyapi.com/api/character/'
+    payload = {}
+    headers= {}
+    response1 = requests.request("GET", url8, headers=headers, data = payload)
+    data1 = response1.json() 
+    characters = data1['results']
+
+    for i in range(2, data1['info']['pages'] + 1):
+        url = "https://rickandmortyapi.com/api/character/?page={}".format(i)
+        payload = {}
+        headers= {}
+        response = requests.request("GET", url, headers=headers, data = payload)
+        data = response.json() 
+        characters += data['results']
+
+    for character in characters:
+        if search.lower() in character['name'].lower():
+
+            print(character['name'])
+            personajesCoincidentes.append(character)
+
+    # Se buscan los lugares coincidentes
+
+    # Lento pero funciona
+
+    url1 = 'https://rickandmortyapi.com/api/location/'
+    payload = {}
+    headers= {}
+    response1 = requests.request("GET", url1, headers=headers, data = payload)
+    data1 = response1.json() 
+    places = data1['results']
+
+    for i in range(2, data1['info']['pages'] + 1):
+        url = "https://rickandmortyapi.com/api/location/?page={}".format(i)
+        payload = {}
+        headers= {}
+        response = requests.request("GET", url, headers=headers, data = payload)
+        data = response.json() 
+        places += data['results']
+
+    for place in places:
+        if search.lower() in place['name'].lower(): 
+            print(place['name'])
+            lugaresCoincidentes.append(place)
+
+    #results = {'characters': personajesCoincidentes, 'episodes': episodiosCoincidentes, 'places': lugaresCoincidentes}
+    results = {'characters': personajesCoincidentes, 'episodes': episodiosCoincidentes, 'places': lugaresCoincidentes}
+
+    return render_template('response.html', results=results)
 
 
 if __name__ == '__main__':

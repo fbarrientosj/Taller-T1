@@ -1,0 +1,52 @@
+{% extends "layout.html" %}
+{% block content %}
+    
+
+    <h1>The results of your search</h1>
+    <p> </p>
+    <p> </p>
+    <h2>Episodes</h2>
+    {% for episode in results.episodes %}
+        <article class="media content-section">
+          <div class="media-body">
+            <div class="article-metadata">
+              <a class="mr-2">Episode id: {{ episode.id }}</a>
+              <small class="text-muted">Date {{ episode.air_date }}</small>
+            </div>
+            <h2><a class="article-title" href = {{ url_for('find_episode' ,episode_id=episode.id) }}>Episode {{ episode.name }}</a></h2>
+            <p class="article-content">Episode code: {{ episode.episode }}</p>
+          </div>
+        </article>
+    {% endfor %}
+    <p> </p>
+    <p> </p>
+    <h2>Places</h2>
+    {% for place in results.places %}
+        <article class="media content-section">
+          <div class="media-body">
+            <div class="article-metadata">
+              <a class="mr-2">Place type: {{ place.id }}</a>
+            </div>
+            <h2><a class="article-title" href = {{ url_for('find_place' ,place_id=place.id) }}>place {{ place.name }}</a></h2>
+            <p class="article-content">Place dimension: {{ place.dimension }}</p>
+          </div>
+        </article>
+    {% endfor %}
+    <p> </p>
+    <p> </p>
+    <h2>Characters</h2>
+    
+    {% for character in results.characters %}
+        <article class="media content-section">
+          <div class="media-body">
+            <div class="article-metadata">
+              <a class="mr-2" href = {{ url_for('find_character' ,character_id=character.id) }}>Name {{ character.name }}</a>
+              <small class="text-muted">Character species {{ character.species }}</small>
+            </div>
+            <p class="article-content">Character origin {{ character.origin.name }}</p>
+          </div>
+        </article>
+    {% endfor %}
+
+    
+{% endblock content %}

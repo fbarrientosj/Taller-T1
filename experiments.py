@@ -1,27 +1,27 @@
 import requests
 
-urlPlace = 'https://rickandmortyapi.com/api/location/68'
+search = 'a'
+personajesCoincidentes = []
+
+
+
+url1 = 'https://rickandmortyapi.com/api/character/'
 payload = {}
 headers= {}
-response = requests.request("GET", urlPlace, headers=headers, data = payload)
-data = response.json() 
+response1 = requests.request("GET", url1, headers=headers, data = payload)
+data1 = response1.json() 
+characters = data1['results']
 
-# Hasta acá ya se tiene la info del lugar, se procede a sacar a los residentes
-if len(data['residents']):
-    characters_url = data['residents']
-    characters_numbers = ''
-    for url in characters_url:
-        lista = url.split('/')
-        #characters_numbers.append(lista[-1])
-        characters_numbers += (lista[-1]+',')
-
-    characters_numbers = characters_numbers[0:-1]
-
-    urlCharacters = 'https://rickandmortyapi.com/api/character/{}'.format(characters_numbers)
+for i in range(2, data1['info']['pages'] + 1):
+    url = "https://rickandmortyapi.com/api/character/?page={}".format(i)
     payload = {}
     headers= {}
-    response = requests.request("GET", urlCharacters, headers=headers, data = payload)
-    characters = response.json() 
-    data['residents'] = characters
+    response = requests.request("GET", url, headers=headers, data = payload)
+    data = response.json() 
+    characters += data['results']
 
-print(data)
+for character in characters:
+    if search.lower() in character['name'].lower():
+
+        print(character['name'])
+        personajesCoincidentes.append(character)

@@ -1,14 +1,10 @@
 import requests
 
-search = 'a'
-personajesCoincidentes = []
 
-
-
-url1 = 'https://rickandmortyapi.com/api/character/'
+url8 = 'https://rickandmortyapi.com/api/character/'
 payload = {}
 headers= {}
-response1 = requests.request("GET", url1, headers=headers, data = payload)
+response1 = requests.request("GET", url8, headers=headers, data = payload)
 data1 = response1.json() 
 characters = data1['results']
 

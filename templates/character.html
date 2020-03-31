@@ -14,6 +14,8 @@
         {% else %}
             <a class="article-content" href = {{ url_for('find_place' ,place_id=character.origin.id) }}>Origin {{ character.origin.name }}</a>
         {% endif %}
+        <a class="mr-2" > {{ character.type }}</a>
+        <a class="mr-2" >Gender {{ character.gender }}</a>
         </div>
     </article>
     

@@ -1,21 +1,28 @@
 {% extends "layout.html" %}
 {% block content %}
-    
 
-  
-
- 
     <article class="media content-section">
         <div class="media-body">
         <div class="article-metadata">
-            <a class="mr-2" href="#">Capítulo {{ episode }}</a>
-            <small class="text-muted">{{ episode }}</small>
+            <a class="mr-2" href="#">Capítulo {{ episode.id }}</a>
+            <small class="text-muted">{{ episode.air_date }}</small>
         </div>
-      
-        <p class="article-content">{{ episode }}</p>
+        <h2><a class="article-title" href = {{ url_for('find_episode' ,episode_id=episode.id) }}>{{ episode.name }}</a></h2>
+        <p class="article-content">{{ episode.episode }}</p>
         </div>
     </article>
-
+    <h2>Personajes</h2>
+    {% for character in episode.characters %}
+        <article class="media content-section">
+          <div class="media-body">
+            <div class="article-metadata">
+              <a class="mr-2" href="#"> {{ character.name }}</a>
+              <small class="text-muted">{{ character.species }}</small>
+            </div>
+            <p class="article-content">{{ character.origin.name }}</p>
+          </div>
+        </article>
+    {% endfor %}
 
     
 {% endblock content %}

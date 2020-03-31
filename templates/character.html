@@ -4,12 +4,16 @@
     <article class="media content-section">
         <div class="media-body">
         <div class="article-metadata">
-            <a class="mr-2" >Raza {{ character.species }}</a>
-            <small class="text-muted">{{ character.status }}</small>
+            <a class="mr-2" >Species {{ character.species }}</a>
+            <small class="text-muted">Status {{ character.status }}</small>
         </div>
         <img src="{{ character.image }}" alt="character">
-        <h2><a class="article-title" href = {{ url_for('find_character' ,character_id=character.id) }}>{{ character.name }}</a></h2>
-        <p class="article-content">{{ character.origin.name }}</p>
+        <h2><a class="article-title" href = {{ url_for('find_character' ,character_id=character.id) }}>Name {{ character.name }}</a></h2>
+        {% if character.origin.id == 'unknown' %}
+            <a class="article-content" >Origin {{ character.origin.name }}</a>
+        {% else %}
+            <a class="article-content" href = {{ url_for('find_place' ,place_id=character.origin.id) }}>Origin {{ character.origin.name }}</a>
+        {% endif %}
         </div>
     </article>
     
@@ -19,10 +23,10 @@
             <article class="media content-section">
             <div class="media-body">
                 <div class="article-metadata">
-                <h2><a class="article-title" href = {{ url_for('find_episode' ,episode_id=episode.id) }}>{{ episode.name }}</a></h2>
-                <small class="text-muted">{{ episode.id }}</small>
+                <h2><a class="article-title" href = {{ url_for('find_episode' ,episode_id=episode.id) }}>Episode {{ episode.name }}</a></h2>
+                <small class="text-muted">Episode id {{ episode.id }}</small>
                 </div>
-                <p class="article-content">{{ episode.air_date }}</p>
+                <p class="article-content">Episode date {{ episode.air_date }}</p>
             </div>
             </article>
         {% endfor %}
@@ -32,10 +36,10 @@
         <article class="media content-section">
             <div class="media-body">
                 <div class="article-metadata">
-                <h2><a class="article-title" href = {{ url_for('find_episode' ,episode_id=character.episode.id) }}>{{ character.episode.name }}</a></h2>
-                <small class="text-muted">{{ character.episode.id }}</small>
+                <h2><a class="article-title" href = {{ url_for('find_episode' ,episode_id=character.episode.id) }}>Episode {{ character.episode.name }}</a></h2>
+                <small class="text-muted">Episode id {{ character.episode.id }}</small>
                 </div>
-                <p class="article-content">{{ character.episode.air_date }}</p>
+                <p class="article-content">Episode date {{ character.episode.air_date }}</p>
             </div>
         </article>
         

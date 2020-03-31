@@ -68,23 +68,67 @@ def find_character(character_id):
 
     episode_numbers = episode_numbers[0:-1]
 
-
     urlEpisodes = 'https://rickandmortyapi.com/api/episode/{}'.format(episode_numbers)
     payload = {}
     headers= {}
     response = requests.request("GET", urlEpisodes, headers=headers, data = payload)
     episodes = response.json() 
     data['episode'] = episodes
-    print(type(episodes))
+
+    # Podría ocurrir que el personaje solo aparezca en un cápitulo
+
     if type(episodes) == list:
         data['typeEpisode'] = 'list'
-        print('entre')
-        print('entre')
-        print('entre')
-        print('entre')
     else:
         data['typeEpisode'] = 'dict'
+
+    # Para sacar el id del planeta del personaje
+    if data['origin']['name'] != 'unknown':
+        data['origin']['id'] = data['origin']['url'].split('/')[-1]
+    
+    else:
+        data['origin']['id'] = 'unknown'
+
     return render_template('character.html', character=data)
+
+    
+@app.route('/place/<int:place_id>')
+def find_place(place_id): 
+
+    urlPlace = 'https://rickandmortyapi.com/api/location/{}'.format(place_id)
+    payload = {}
+    headers= {}
+    response = requests.request("GET", urlPlace, headers=headers, data = payload)
+    data = response.json() 
+
+    # Hasta acá ya se tiene la info del lugar, se procede a sacar a los residentes
+    if len(data['residents']):
+        characters_url = data['residents']
+        characters_numbers = ''
+        for url in characters_url:
+            lista = url.split('/')
+            #characters_numbers.append(lista[-1])
+            characters_numbers += (lista[-1]+',')
+
+        characters_numbers = characters_numbers[0:-1]
+
+        urlCharacters = 'https://rickandmortyapi.com/api/character/{}'.format(characters_numbers)
+        payload = {}
+        headers= {}
+        response = requests.request("GET", urlCharacters, headers=headers, data = payload)
+        characters = response.json() 
+        data['residents'] = characters
+
+    # Podría ocurrir que el lugar solo tuviese un habitante
+    print(characters)
+    
+    if type(data['residents']) == list:
+        data['typeCharacters'] = 'list'
+    else:
+        data['typeCharacters'] = 'dict'
+    return render_template('place.html', place=data)
+    
+
 
 
 if __name__ == '__main__':

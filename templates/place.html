@@ -1,0 +1,41 @@
+{% extends "layout.html" %}
+{% block content %}
+    
+    <article class="media content-section">
+        <div class="media-body">
+        <div class="article-metadata">
+            <a class="mr-2">Place type {{ place.type }}</a>
+        </div>
+        <h2><a class="article-title" >Place name {{ place.name }}</a></h2>
+        <p class="article-content">Place dimension {{ place.dimension }}</p>
+        </div>
+    </article>
+  
+    {% if place.typeCharacters == 'list' %}
+        {% for resident in place.residents %}
+            <article class="media content-section">
+            <div class="media-body">
+                <div class="article-metadata">
+                <a class="mr-2" href = {{ url_for('find_character' ,character_id=resident.id) }}>Residen name {{ resident.name }}</a>
+                <small class="text-muted">Resident species {{ resident.species }}</small>
+                </div>
+                <p class="article-content">Resident type {{ resident.type }}</p>
+            </div>
+            </article>
+        {% endfor %}
+    
+    {% else %}
+        <article class="media content-section">
+            <div class="media-body">
+                <div class="article-metadata">
+                <a class="mr-2" href = {{ url_for('find_character' ,character_id=place.residents.id) }}>Resident name {{ place.residents.name }}</a>
+                <small class="text-muted">Resident species {{ place.residents.species }}</small>
+                </div>
+                <p class="article-content">Resident type {{ place.residents.type }}</p>
+            </div>
+            </article>
+
+    {% endif %}
+
+    
+{% endblock content %}

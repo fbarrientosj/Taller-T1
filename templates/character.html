@@ -7,15 +7,32 @@
             <a class="mr-2" >Species {{ character.species }}</a>
             <small class="text-muted">Status {{ character.status }}</small>
         </div>
+        <div>
+        <h2><a class="article-title" href = {{ url_for('find_character' ,character_id=character.id) }}>{{ character.name }}</a></h2>
         <img src="{{ character.image }}" alt="character">
-        <h2><a class="article-title" href = {{ url_for('find_character' ,character_id=character.id) }}>Name {{ character.name }}</a></h2>
+        </div>
         {% if character.origin.id == 'unknown' %}
-            <a class="article-content" >Origin {{ character.origin.name }}</a>
+            <a>Origin</a>
+            <a class="mr-2" >Origin {{ character.origin.name }}</a>
         {% else %}
-            <a class="article-content" href = {{ url_for('find_place' ,place_id=character.origin.id) }}>Origin {{ character.origin.name }}</a>
+            <a>Origin</a>   
+            <a class="mr-2" href = {{ url_for('find_place' ,place_id=character.origin.id) }}>Origin {{ character.origin.name }}</a>
         {% endif %}
+        <div>
         <a class="mr-2" > {{ character.type }}</a>
+        </div>
+        <div>
         <a class="mr-2" >Gender {{ character.gender }}</a>
+        </div>
+        <div>
+        {% if character.location.id == 'unknown' %}
+            <a>Location</a>
+            <a class="mr-2" >Location {{ character.location.name }}</a>
+        {% else %}
+            <a>Location</a>
+            <a class="mr-2" href = {{ url_for('find_place' ,place_id=character.location.id) }}>Location {{ character.location.name }}</a>
+        {% endif %}
+        </div>
         </div>
     </article>
     
@@ -26,7 +43,7 @@
             <div class="media-body">
                 <div class="article-metadata">
                 <h2><a class="article-title" href = {{ url_for('find_episode' ,episode_id=episode.id) }}>Episode {{ episode.name }}</a></h2>
-                <small class="text-muted">Episode id {{ episode.id }}</small>
+                <small class="text-muted">Episode {{ episode.id }}</small>
                 </div>
                 <p class="article-content">Episode date {{ episode.air_date }}</p>
             </div>

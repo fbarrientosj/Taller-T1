@@ -89,7 +89,16 @@ def find_character(character_id):
     else:
         data['origin']['id'] = 'unknown'
 
+    # Para sacar el location del personaje
+    if data['location']['name'] != 'unknown':
+        data['location']['id'] = data['location']['url'].split('/')[-1]
+    
+    else:
+        data['location']['id'] = 'unknown'
+
+
     return render_template('character.html', character=data)
+
 
     
 @app.route('/place/<int:place_id>')

@@ -4,10 +4,10 @@
     <article class="media content-section">
         <div class="media-body">
         <div class="article-metadata">
-            <a class="mr-2">Place type {{ place.type }}</a>
+            <a class="text-muted">Place type {{ place.type }}</a>
         </div>
         <h2><a class="article-title" >Place name {{ place.name }}</a></h2>
-        <p class="article-content">Place dimension {{ place.dimension }}</p>
+        <p class="text-muted">Place dimension {{ place.dimension }}</p>
         </div>
     </article>
   
@@ -16,10 +16,10 @@
             <article class="media content-section">
             <div class="media-body">
                 <div class="article-metadata">
-                <a class="mr-2" href = {{ url_for('find_character' ,character_id=resident.id) }}>Residen name {{ resident.name }}</a>
-                <small class="text-muted">Resident species {{ resident.species }}</small>
+                <a class="mr-2">Resident </a>
+                <a class="mr-2" href = {{ url_for('find_character' ,character_id=resident.id) }}>  {{ resident.name }}</a>
+                <small class="text-muted"> species {{ resident.species }}</small>
                 </div>
-                <p class="article-content">Resident type {{ resident.type }}</p>
             </div>
             </article>
         {% endfor %}
@@ -28,10 +28,10 @@
         <article class="media content-section">
             <div class="media-body">
                 <div class="article-metadata">
-                <a class="mr-2" href = {{ url_for('find_character' ,character_id=place.residents.id) }}>Resident name {{ place.residents.name }}</a>
-                <small class="text-muted">Resident species {{ place.residents.species }}</small>
+                    <a class="mr-2">Resident </a>
+                <a class="mr-2" href = {{ url_for('find_character' ,character_id=place.residents.id) }}> {{ place.residents.name }}</a>
+                <small class="text-muted"> species {{ place.residents.species }}</small>
                 </div>
-                <p class="article-content">Resident type {{ place.residents.type }}</p>
             </div>
         </article>
 

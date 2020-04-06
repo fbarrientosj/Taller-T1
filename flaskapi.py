@@ -9,8 +9,8 @@ app = Flask(__name__)
 @app.route("/home")
 def home():
 
-    url1 = "https://rickandmortyapi.com/api/episode/"
-    url2 = "https://rickandmortyapi.com/api/episode?page=2"
+    url1 = "https://integracion-rick-morty-api.herokuapp.com/api/episode"
+    url2 = "https://integracion-rick-morty-api.herokuapp.com/api/episode?page=2"
     payload = {}
     headers= {}
     response1 = requests.request("GET", url1, headers=headers, data = payload)
@@ -20,6 +20,7 @@ def home():
     episodes1 = data1['results']
     episodes2 = data2['results']
     episodes = episodes1 + episodes2
+    print(len(episodes))
     return render_template('home.html', episodes=episodes)
 
 
@@ -29,7 +30,7 @@ def about():
 
 @app.route('/episode/<int:episode_id>')
 def find_episode(episode_id): 
-    urlChapter = 'https://rickandmortyapi.com/api/episode/{}'.format(episode_id)
+    urlChapter = 'https://integracion-rick-morty-api.herokuapp.com/api/episode/{}'.format(episode_id)
     payload = {}
     headers= {}
     response = requests.request("GET", urlChapter, headers=headers, data = payload)
@@ -43,7 +44,7 @@ def find_episode(episode_id):
 
     characters_numbers = characters_numbers[0:-1]
 
-    urlCharacters = 'https://rickandmortyapi.com/api/character/{}'.format(characters_numbers)
+    urlCharacters = 'https://integracion-rick-morty-api.herokuapp.com/api/character/{}'.format(characters_numbers)
     payload = {}
     headers= {}
     response = requests.request("GET", urlCharacters, headers=headers, data = payload)
@@ -54,7 +55,7 @@ def find_episode(episode_id):
 
 @app.route('/character/<int:character_id>')
 def find_character(character_id): 
-    urlCharacter = 'https://rickandmortyapi.com/api/character/{}'.format(character_id)
+    urlCharacter = 'https://integracion-rick-morty-api.herokuapp.com/api/character/{}'.format(character_id)
     payload = {}
     headers= {}
     response = requests.request("GET", urlCharacter, headers=headers, data = payload)
@@ -68,7 +69,7 @@ def find_character(character_id):
 
     episode_numbers = episode_numbers[0:-1]
 
-    urlEpisodes = 'https://rickandmortyapi.com/api/episode/{}'.format(episode_numbers)
+    urlEpisodes = 'https://integracion-rick-morty-api.herokuapp.com/api/episode/{}'.format(episode_numbers)
     payload = {}
     headers= {}
     response = requests.request("GET", urlEpisodes, headers=headers, data = payload)
@@ -104,7 +105,7 @@ def find_character(character_id):
 @app.route('/place/<int:place_id>')
 def find_place(place_id): 
 
-    urlPlace = 'https://rickandmortyapi.com/api/location/{}'.format(place_id)
+    urlPlace = 'https://integracion-rick-morty-api.herokuapp.com/api/location/{}'.format(place_id)
     payload = {}
     headers= {}
     response = requests.request("GET", urlPlace, headers=headers, data = payload)
@@ -121,7 +122,7 @@ def find_place(place_id):
 
         characters_numbers = characters_numbers[0:-1]
 
-        urlCharacters = 'https://rickandmortyapi.com/api/character/{}'.format(characters_numbers)
+        urlCharacters = 'https://integracion-rick-morty-api.herokuapp.com/api/character/{}'.format(characters_numbers)
         payload = {}
         headers= {}
         response = requests.request("GET", urlCharacters, headers=headers, data = payload)
@@ -147,8 +148,8 @@ def handle_data():
     
     # Se busca primero en los episodios 
 
-    url1 = "https://rickandmortyapi.com/api/episode/"
-    url2 = "https://rickandmortyapi.com/api/episode?page=2"
+    url1 = "https://integracion-rick-morty-api.herokuapp.com/api/episode/"
+    url2 = "https://integracion-rick-morty-api.herokuapp.com/api/episode?page=2"
     payload = {}
     headers= {}
     response1 = requests.request("GET", url1, headers=headers, data = payload)
@@ -166,7 +167,7 @@ def handle_data():
     # Se buscan los personajes coincidentes (lento pero funciona)
 
     
-    url8 = 'https://rickandmortyapi.com/api/character/'
+    url8 = 'https://integracion-rick-morty-api.herokuapp.com/api/character/'
     payload = {}
     headers= {}
     response1 = requests.request("GET", url8, headers=headers, data = payload)
@@ -174,7 +175,7 @@ def handle_data():
     characters = data1['results']
 
     for i in range(2, data1['info']['pages'] + 1):
-        url = "https://rickandmortyapi.com/api/character/?page={}".format(i)
+        url = "https://integracion-rick-morty-api.herokuapp.com/api/character/?page={}".format(i)
         payload = {}
         headers= {}
         response = requests.request("GET", url, headers=headers, data = payload)
@@ -191,7 +192,7 @@ def handle_data():
 
     # Lento pero funciona
 
-    url1 = 'https://rickandmortyapi.com/api/location/'
+    url1 = 'https://integracion-rick-morty-api.herokuapp.com/api/location/'
     payload = {}
     headers= {}
     response1 = requests.request("GET", url1, headers=headers, data = payload)
@@ -199,7 +200,7 @@ def handle_data():
     places = data1['results']
 
     for i in range(2, data1['info']['pages'] + 1):
-        url = "https://rickandmortyapi.com/api/location/?page={}".format(i)
+        url = "https://integracion-rick-morty-api.herokuapp.com/api/location/?page={}".format(i)
         payload = {}
         headers= {}
         response = requests.request("GET", url, headers=headers, data = payload)

@@ -10,7 +10,6 @@
         <article class="media content-section">
           <div class="media-body">
             <div class="article-metadata">
-              <a class="mr-2">Episode id: {{ episode.id }}</a>
               <small class="text-muted">Date {{ episode.air_date }}</small>
             </div>
             <h2><a class="article-title" href = {{ url_for('find_episode' ,episode_id=episode.id) }}>Episode {{ episode.name }}</a></h2>
